@@ -1,0 +1,57 @@
+{% extends "main/base/base.html" %}
+
+{% block title %}Empresa | {{ company.businessName }}{% endblock title %}
+
+{% block content %}
+    <div class="company-container">
+        <div class="company-identification">
+            <div class="company-cover">
+                <img src="{{ company.profilePic.url }}" alt="">
+            </div>
+            <div class="company-info">
+                <h1>{{ company.businessName }}</h1>
+                <h2>{{ company.legalName }}</h2>
+            </div>
+        </div>
+
+        <div class="company-description">
+            <h2>Sobre nós:</h2>
+            <p>{{ company.description }}</p>
+        </div>
+
+        {% if products %}
+            <div class="company-products">
+                <h2>Produtos</h2>
+                <div class="company-products-list">
+                    {% for product in products %}
+                        {% include "main/partials/company-products.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if services %}
+            <div class="company-services">
+                <h2>Serviços</h2>
+                <div class="company-services-list">
+                    {% for service in services %}
+                        {% include "main/partials/company-service.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="company-contact">
+            <div class="company-email"><i class="fa-solid fa-envelope"></i> {{ company.email }}</div>
+            <div class="company-phone"><i class="fa-solid fa-phone-flip"></i> {{ company.phoneNumber }}</div>
+        </div>
+
+        <div class="company-social">
+            {% for social_media in social_medias %}
+                <a href="{{ social_media.link }}">
+                    {{ social_media.icon|safe }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

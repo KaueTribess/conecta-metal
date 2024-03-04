@@ -1,0 +1,67 @@
+{% load static %}
+
+<header class="main-header-container">
+    <div class="main-header-left">
+        <img src="{% static 'main/img/cm-square-logo.png' %}" alt="CM" class="main-header-logo">
+        <a href="{% url "main_app:home" %}" class="main-header-nav-button">
+            <p>Produtos</p>
+        </a>
+        <a href="{% url "main_app:services" %}" class="main-header-nav-button">
+            <p>Serviços</p>
+        </a>
+        <a href="{% url "main_app:requests" %}" class="main-header-nav-button">
+            <p>Pedidos</p>
+        </a>
+    </div>
+    <div class="main-header-right">
+        {% if request.user.is_authenticated %}
+            <div class="main-header-cart">
+                <a href="{% url "main_app:shopping" %}" class="main-header-cart-button">
+                    <p>{{ products_amount }}</p>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </div>
+            <a href="" class="main-header-nav-button icon-button">
+                <i class="fa-solid fa-message"></i>
+            </a>
+        {% endif %}
+        <div class="profile-dropdown main-header-nav-button icon-button">
+            <button class="profile-dropbtn"> 
+                {% if request.user.is_authenticated %}
+                    <img src="{{ user_profile.picture.url }}" alt="" class="user-picture">
+                {% else %}
+                    <i class="fa-solid fa-user"></i>
+                {% endif %}
+            </button>
+            <div class="profile-dropdown-content">
+                {% if request.user.is_authenticated %}
+
+                    <p>Olá, {{ request.user.username }}</p>
+
+                    <div class="profile-dropdown-separator"></div>
+
+                    <a href="{% url "main_app:profile" user_profile.user.username %}">Perfil</a>
+                    {% if user_profile.serviceTer != 'Nenhum' %}
+                        <a href="{% url "main_app:dashboard" %}">Painel</a>
+                    {% endif %}
+                    <a href="{% url "main_app:historic" %}">Histórico</a>
+
+                    <div class="profile-dropdown-separator"></div>
+
+                    <form action="{% url "main_app:logout" %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" value="{{ request.user.username }}">
+                        <button type="submit">Sair</button>
+                    </form>
+                    
+                {% else %}
+
+                    <a href="{% url "main_app:login" %}">Logar</a>
+                    <a href="{% url "main_app:register" %}">Criar conta</a>
+
+                {% endif %}
+            </div>
+            </div>
+
+    </div>
+</header>

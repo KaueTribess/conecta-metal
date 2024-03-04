@@ -1,0 +1,14 @@
+<div class="main-products-container">
+    {% comment %} <div class="main-products-option">
+        <button class="main-products-option-button" name="products">Produtos</button>
+        <button class="main-products-option-button" name="services">Serviços</button>
+    </div> {% endcomment %}
+    <div class="main-products-list">
+        {% for product in products %}
+            {% include "main/partials/products-card.html" %}
+        {% endfor %}
+    </div>
+    {% if products.has_other_pages %}
+        {% include "main/partials/pagination.html" %}
+    {% endif %}
+</div>

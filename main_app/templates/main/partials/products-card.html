@@ -1,0 +1,41 @@
+<div class="card main-content-list-item">
+    <a href="product/{{ product.slug }}">
+        <div class="card-cover">
+            <img src="{{ product.mainPicture.url }}" alt="">
+        </div>
+
+        <div class="card-title">
+            <h2>{{ product.name }}</h2>
+        </div>
+
+        <div class="card-value">
+            R$ {{ product.value }}
+        </div>
+
+        <div class="card-details">
+            <p>{{ product.details }}</p>
+        </div>
+    </a>
+        <div class="card-info">
+            <div class="card-rating">
+                {% include "main/partials/product-rating.html" %}
+            </div>
+
+            <div class="card-owner">
+                <a href="{% url 'main_app:company' product.company.slug %}">
+                    <img src="{{ product.company.profilePic.url }}" alt="">
+                    {{ product.company.businessName }}
+                </a>
+            </div>
+        </div>
+    <div class="card-button">
+        <form action="{% url "main_app:home" %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="client" value="{{ user_profile.id }}">
+            <input type="hidden" name="product" value="{{ product.id }}">
+            <input type="hidden" name="amount" value={{ 1 }}>
+            <input type="hidden" name="finalPrice" value={{ 0 }}>
+            <button type="submit"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+        </form>
+    </div>
+</div>

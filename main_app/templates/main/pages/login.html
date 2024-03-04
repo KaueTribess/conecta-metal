@@ -1,0 +1,32 @@
+{% extends "main/base/base.html" %}
+
+{% load static %}
+
+{% block static %}
+    <link rel="stylesheet" href="{% static 'main/css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/message.css' %}">
+{% endblock static %}
+
+{% block title %}Cadastrar{% endblock title %}
+
+{% block content %}
+    <div class="form-container">
+        <div class="form-content">
+            <h2>Entrar</h2>
+            <form action="{% url "main_app:validate" %}" method="POST">
+                {% csrf_token %}
+
+                {% include "main/partials/form.html" %}
+
+                {% include 'main/partials/messages.html' %}
+
+                <div class="form-item form-button">
+                    <button type="submit">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+{% endblock content %}
+
